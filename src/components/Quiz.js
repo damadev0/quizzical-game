@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Question from './Question'
 import '../css/Quiz.css'
 
-function Quiz() {
+function Quiz(props) {
     const [questions, setQuestions] = useState([
         {
             question: "How would one say goodbye in Spanish?",
@@ -64,6 +64,10 @@ function Quiz() {
     return (
         <div className="quiz">
             {renderQuestions}
+            <div className="control-btns">
+                <button className="check-btn">Check Answers</button>
+                <button onClick={props.changeGameState} className="finish-btn">Finish Game</button>
+            </div>
         </div>
     )
 }
