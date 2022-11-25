@@ -1,0 +1,18 @@
+.question {
+    width: 100%;
+    margin: 30px 0;
+    padding-bottom: 30px;
+    border-bottom: 1.6px solid #CCAA2F;
+}
+
+h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.options {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
