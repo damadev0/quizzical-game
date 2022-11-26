@@ -9,11 +9,12 @@ function Question(props) {
                 {props.options.map((option, index) => (
                     <Option 
                     key={index}
-                    index={index}
                     updateSelected={props.updateSelected}
                     questionIndex={props.index}
                     value={option}
                     isSelected={props.selected === option}
+                    isCorrectOption={props.correct_answer === option}
+                    quizChecked={props.quizChecked}
                     />
                 ))}
             </div>

@@ -8,33 +8,39 @@ function Quiz(props) {
             question: "How would one say goodbye in Spanish?",
             correct_answer: "Adiós",
             options: ["Adiós", "Hola", "Au Revoir", "Salir"],
-            selected: "Hola"
+            selected: "Hola",
+            isCorrect: false,
         },
         {
             question: "Which best selling toy of 1983 caused hysteria, resulting in riots breaking in stores?",
             correct_answer: "Cabbage Patch Kids",
             options: ["Cabbage Patch Kids", "Transformers", "Care Bears", "Rubik’s Cube"],
-            selected: "Care Bears"
+            selected: "Care Bears",
+            isCorrect: false,
         },
         {
             question: "What is the hottest planet in our Solar System?",
             correct_answer: "Venus",
             options: ["Mercury", "Venus", "Mars", "Saturn"],
-            selected: "Mercury"
+            selected: "Mercury",
+            isCorrect: false,
         },
         {
             question: "In which country was the caesar salad invented?",
             correct_answer: "Italy",
             options: ["Italy", "Portugal", "Mexico", "France"],
-            selected: "Portugal"
+            selected: "Portugal",
+            isCorrect: false,
         },
         {
             question: "How Many Hearts Does An Octopus Have?",
             correct_answer: "Three",
             options: ["One", "Two", "Three", "Four"],
-            selected: "Four"
+            selected: "Four",
+            isCorrect: false,
         },
     ])
+    const [quizChecked, setQuizChecked] = useState(false)
 
     useEffect(function() {
         console.log("Effect ran")
@@ -49,6 +55,14 @@ function Quiz(props) {
         }))
     }
 
+    function checkAnswers() {
+        setQuestions(prevQuestions => prevQuestions.map((question, index) => {
+            // Later check in the answer or option component if the answer was wrong, which is the correct and add the prop to the option component
+            return {...question, isCorrect: question.correct_answer === question.selected ? true : false}
+        }))
+        setQuizChecked(true)
+    }
+
     const renderQuestions = questions.map((question, index) => (
         <Question 
         key={index}
@@ -58,6 +72,8 @@ function Quiz(props) {
         options={question.options}
         selected={question.selected}
         updateSelected={updateSelected}
+        isCorrect={question.isCorrect}
+        quizChecked={quizChecked}
         />
     ))
 
@@ -65,7 +81,7 @@ function Quiz(props) {
         <div className="quiz">
             {renderQuestions}
             <div className="control-btns">
-                <button className="check-btn">Check Answers</button>
+                <button onClick={checkAnswers} className="check-btn">Check Answers</button>
                 <button onClick={props.changeGameState} className="finish-btn">Finish Game</button>
             </div>
         </div>

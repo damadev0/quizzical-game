@@ -7,3 +7,21 @@ button {
     border: 1.6px solid #2B2C31;
     border-radius: 8px;
 }
+
+.selected {
+    background-color: #CCAA2F;
+    color: #ffffff;
+    border: 1.6px solid #CCAA2F;
+}
+
+.isCorrect {
+    background-color: #94D7A2;
+    color: #2B2C31;
+    border: 1.6px solid #94D7A2;
+}
+
+.isIncorrect {
+    background-color: #F8BCBC;
+    color: #2B2C31;
+    border: 1.6px solid #F8BCBC;
+}
