@@ -3,7 +3,10 @@
 }
 
 .control-btns {
-    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
 }
 
 .check-btn {
@@ -12,4 +15,8 @@
 
 .finish-btn {
 
+}
+
+.control-btns > h4 {
+    margin-right: 60px;
 }
