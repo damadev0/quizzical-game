@@ -4,55 +4,23 @@ import Question from './Question'
 import '../css/Quiz.css'
 
 function Quiz(props) {
-    // DELETE ARRAY 
-    // const [questions, setQuestions] = useState([
-    //     {
-    //         question: "How would one say goodbye in Spanish?",
-    //         correct_answer: "Adiós",
-    //         options: ["Adiós", "Hola", "Au Revoir", "Salir"],
-    //         selected: "",
-    //         isCorrect: false,
-    //     },
-    //     {
-    //         question: "Which best selling toy of 1983 caused hysteria, resulting in riots breaking in stores?",
-    //         correct_answer: "Cabbage Patch Kids",
-    //         options: ["Cabbage Patch Kids", "Transformers", "Care Bears", "Rubik’s Cube"],
-    //         selected: "",
-    //         isCorrect: false,
-    //     },
-    //     {
-    //         question: "What is the hottest planet in our Solar System?",
-    //         correct_answer: "Venus",
-    //         options: ["Mercury", "Venus", "Mars", "Saturn"],
-    //         selected: "",
-    //         isCorrect: false,
-    //     },
-    //     {
-    //         question: "In which country was the caesar salad invented?",
-    //         correct_answer: "Italy",
-    //         options: ["Italy", "Portugal", "Mexico", "France"],
-    //         selected: "",
-    //         isCorrect: false,
-    //     },
-    //     {
-    //         question: "How Many Hearts Does An Octopus Have?",
-    //         correct_answer: "Three",
-    //         options: ["One", "Two", "Three", "Four"],
-    //         selected: "",
-    //         isCorrect: false,
-    //     },
-    // ])
     const [questions, setQuestions] = useState([])
     const [quizChecked, setQuizChecked] = useState(false)
     const [score, setScore] = useState(0)
 
     useEffect(function() {
-        console.log("Fetched data")
-        const data = fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple")
-            .then(res => res.json())
-            .then(data => console.log(data))
-        setQuestions(data.results)
+        fetchQuestions()
     }, [])
+
+    function fetchQuestions() {
+        fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple")
+        .then((res) => res.json())
+        .then((data) => data.results)
+        .then((questionsData) => setQuestions(questionsData))
+        setQuestions(prevQuestions => prevQuestions.map(question => {
+            console.log()
+        }))
+    }
 
     function updateSelected(id, value) {
         setQuestions(prevQuestions => prevQuestions.map((question, index) => {
@@ -61,7 +29,7 @@ function Quiz(props) {
     }
 
     function checkAnswers() {
-        if (questions.every(question => {
+        if (questions?.every(question => {
             return question.selected !== ""
         })) {
             //FIX SUM 1 TO SCORE
@@ -76,41 +44,43 @@ function Quiz(props) {
 
     function playAgain() {
         // MODIFY ARRAY FOR FETCH
-        setQuestions([{
-            question: "How would one say goodbye in German?",
-            correct_answer: "Tchus",
-            options: ["Tchus", "Hola", "Au Revoir", "Salir"],
-            selected: "",
-            isCorrect: false,
-        },
-        {
-            question: "Which best selling toy of 1983 caused hysteria, resulting in riots breaking in stores?",
-            correct_answer: "Cabbage Patch Kids",
-            options: ["Cabbage Patch Kids", "Transformers", "Care Bears", "Rubik’s Cube"],
-            selected: "",
-            isCorrect: false,
-        },
-        {
-            question: "What is the hottest planet in our Solar System?",
-            correct_answer: "Venus",
-            options: ["Mercury", "Venus", "Mars", "Saturn"],
-            selected: "",
-            isCorrect: false,
-        },
-        {
-            question: "In which country was the caesar salad invented?",
-            correct_answer: "Italy",
-            options: ["Italy", "Portugal", "Mexico", "France"],
-            selected: "",
-            isCorrect: false,
-        },
-        {
-            question: "How Many Hearts Does An Octopus Have?",
-            correct_answer: "Three",
-            options: ["One", "Two", "Three", "Four"],
-            selected: "",
-            isCorrect: false,
-        },])
+        // setQuestions([
+        // {
+        //     question: "How would one say goodbye in German?",
+        //     correct_answer: "Tchus",
+        //     options: ["Tchus", "Hola", "Au Revoir", "Salir"],
+        //     selected: "",
+        //     isCorrect: false,
+        // },
+        // {
+        //     question: "Which best selling toy of 1983 caused hysteria, resulting in riots breaking in stores?",
+        //     correct_answer: "Cabbage Patch Kids",
+        //     options: ["Cabbage Patch Kids", "Transformers", "Care Bears", "Rubik’s Cube"],
+        //     selected: "",
+        //     isCorrect: false,
+        // },
+        // {
+        //     question: "What is the hottest planet in our Solar System?",
+        //     correct_answer: "Venus",
+        //     options: ["Mercury", "Venus", "Mars", "Saturn"],
+        //     selected: "",
+        //     isCorrect: false,
+        // },
+        // {
+        //     question: "In which country was the caesar salad invented?",
+        //     correct_answer: "Italy",
+        //     options: ["Italy", "Portugal", "Mexico", "France"],
+        //     selected: "",
+        //     isCorrect: false,
+        // },
+        // {
+        //     question: "How Many Hearts Does An Octopus Have?",
+        //     correct_answer: "Three",
+        //     options: ["One", "Two", "Three", "Four"],
+        //     selected: "",
+        //     isCorrect: false,
+        // },])
+        fetchQuestions()
         setQuizChecked(false)
         setScore(0)
     }
