@@ -33,6 +33,7 @@ function Quiz(props) {
         if (questions?.every(question => {
             return question.selected !== undefined
         })) {
+            //
             //FIX SUM 1 TO SCORE
             setQuestions(prevQuestions => prevQuestions.map(question => {
                 question.correct_answer === question.selected && setScore(prevScore => prevScore + 1)
