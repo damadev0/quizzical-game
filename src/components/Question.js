@@ -8,9 +8,8 @@ function Question(props) {
         <div className="question">
             <h3>{props.question}</h3>
             <div className="options">
-                {console.log(props)}
                 {
-                props.options.map((option, index) => (
+                props.options?.map((option, index) => (
                     <Option 
                     key={index}
                     index={index}

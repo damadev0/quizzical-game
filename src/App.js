@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      {!gameState ? <Startup changeGameState={changeGameState}/> : <Quiz />}
+      {!gameState ? <Startup changeGameState={changeGameState}/> : <Quiz changeGameState={changeGameState}/>}
     </div>
   );
 }
