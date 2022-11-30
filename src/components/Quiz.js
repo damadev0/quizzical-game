@@ -21,6 +21,8 @@ function Quiz(props) {
                 options: [...question.incorrect_answers, question.correct_answer].sort(() => Math.random() - 0.4)
             }
         })
+        console.log(questionsData)
+
         return await questionsData
     }
     
@@ -28,11 +30,13 @@ function Quiz(props) {
     const { data, status, error, refetch } = useQuery('questions', fetchQuestions)
 
 
+    //Update selected option of a question
     function updateSelected(questionId, value) {
-        //Update selected option of a question
-        setQuestions(prevQuestions => prevQuestions.map((question, index) => {
+        data = data.map((question, index) => {
+            console.log(index === questionId)
             return index === questionId ? {...question, selected: value} : question
-        }))
+        })
+        console.log(data)
     }
 
     function checkAnswers() {
