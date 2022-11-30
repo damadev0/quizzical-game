@@ -44,9 +44,7 @@ function Quiz(props) {
             questions.map(question => {
                 question.correct_answer === question.selected && setScore(prevScore => prevScore + 1)
             })
-            console.log(questions)
             setQuizChecked(true)
-            console.log(quizChecked)
         }
     }
 
