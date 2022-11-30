@@ -41,54 +41,16 @@ function Quiz(props) {
             return question.selected !== undefined
         })) {
             //Check if answers are correct and update score
-            //FIX SUM 1 TO SCORE
-            setQuestions(prevQuestions => prevQuestions.map(question => {
+            questions.map(question => {
                 question.correct_answer === question.selected && setScore(prevScore => prevScore + 1)
-                return {...question, isCorrect: question.correct_answer === question.selected ? true : false}
-            }))
+            })
+            console.log(questions)
             setQuizChecked(true)
+            console.log(quizChecked)
         }
-        
     }
 
     function playAgain() {
-        // MODIFY ARRAY FOR FETCH
-        // setQuestions([
-        // {
-        //     question: "How would one say goodbye in German?",
-        //     correct_answer: "Tchus",
-        //     options: ["Tchus", "Hola", "Au Revoir", "Salir"],
-        //     selected: "",
-        //     isCorrect: false,
-        // },
-        // {
-        //     question: "Which best selling toy of 1983 caused hysteria, resulting in riots breaking in stores?",
-        //     correct_answer: "Cabbage Patch Kids",
-        //     options: ["Cabbage Patch Kids", "Transformers", "Care Bears", "Rubik’s Cube"],
-        //     selected: "",
-        //     isCorrect: false,
-        // },
-        // {
-        //     question: "What is the hottest planet in our Solar System?",
-        //     correct_answer: "Venus",
-        //     options: ["Mercury", "Venus", "Mars", "Saturn"],
-        //     selected: "",
-        //     isCorrect: false,
-        // },
-        // {
-        //     question: "In which country was the caesar salad invented?",
-        //     correct_answer: "Italy",
-        //     options: ["Italy", "Portugal", "Mexico", "France"],
-        //     selected: "",
-        //     isCorrect: false,
-        // },
-        // {
-        //     question: "How Many Hearts Does An Octopus Have?",
-        //     correct_answer: "Three",
-        //     options: ["One", "Two", "Three", "Four"],
-        //     selected: "",
-        //     isCorrect: false,
-        // },])
         fetchQuestions()
         setQuizChecked(false)
         setScore(0)
@@ -104,6 +66,7 @@ function Quiz(props) {
         options={question.options}
         selected={question.selected}
         updateSelected={updateSelected}
+        quizChecked={quizChecked}
         />
     ))
 
@@ -112,7 +75,7 @@ function Quiz(props) {
             {renderQuestions}
             <div className="control-btns">
                 {/* DELETE THE DIVIDER OF THE SCORE */}
-                {quizChecked && <h4>You Scored {score/2}/5 correct answers</h4>}
+                {quizChecked && <h4>You Scored {score}/5 correct answers</h4>}
                 {quizChecked ? <button onClick={playAgain} className="play-again-btn">Play again</button> : <button onClick={checkAnswers} className="check-btn">Check Answers</button>}
                 <button onClick={props.changeGameState} className="finish-btn">Finish Game</button>
             </div>
