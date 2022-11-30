@@ -29,8 +29,9 @@ function Quiz(props) {
     }
 
     function checkAnswers() {
+        //Check all questions have been answered
         if (questions?.every(question => {
-            return question.selected !== ""
+            return question.selected !== undefined
         })) {
             //FIX SUM 1 TO SCORE
             setQuestions(prevQuestions => prevQuestions.map(question => {
@@ -91,7 +92,7 @@ function Quiz(props) {
         index={index}
         question={question.question}
         correct_answer={question.correct_answer}
-        options={question.options}
+        incorrect_answers={question.incorrect_answers}
         selected={question.selected}
         updateSelected={updateSelected}
         />
