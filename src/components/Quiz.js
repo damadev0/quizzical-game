@@ -17,14 +17,21 @@ function Quiz(props) {
         .then((res) => res.json())
         .then((data) => data.results)
         .then((questionsData) => setQuestions(questionsData))
-        setQuestions(prevQuestions => prevQuestions.map(question => {
-            console.log()
-        }))
+        //Insert the options propperty
+        .then(() => {
+            setQuestions(prevQuestions => prevQuestions.map(question => (
+                {
+                ...question,
+                options: [...question.incorrect_answers, question.correct_answer].sort(() => Math.random() - 0.4)
+                }
+            )))
+        })
     }
 
-    function updateSelected(id, value) {
+    function updateSelected(questionId, value) {
+        //Update selected option of a question
         setQuestions(prevQuestions => prevQuestions.map((question, index) => {
-            return index === id ? {...question, selected: value} : question
+            return index === questionId ? {...question, selected: value} : question
         }))
     }
 
@@ -33,7 +40,7 @@ function Quiz(props) {
         if (questions?.every(question => {
             return question.selected !== undefined
         })) {
-            //
+            //Check if answers are correct and update score
             //FIX SUM 1 TO SCORE
             setQuestions(prevQuestions => prevQuestions.map(question => {
                 question.correct_answer === question.selected && setScore(prevScore => prevScore + 1)
@@ -94,6 +101,7 @@ function Quiz(props) {
         question={question.question}
         correct_answer={question.correct_answer}
         incorrect_answers={question.incorrect_answers}
+        options={question.options}
         selected={question.selected}
         updateSelected={updateSelected}
         />
