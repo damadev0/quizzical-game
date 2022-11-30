@@ -1,4 +1,5 @@
-import { useState, useEffect, useQuery } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from 'react-query'
 import Question from './Question'
 // import { fetchQuestions } from '../fetchers/questions.js'
 import '../css/Quiz.css'
@@ -7,26 +8,25 @@ function Quiz(props) {
     const [questions, setQuestions] = useState([])
     const [quizChecked, setQuizChecked] = useState(false)
     const [score, setScore] = useState(0)
+    
+    //Fetch new questions
+    const fetchQuestions = async () => {
+        const response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple")
+        const results = await (await response.json()).results
 
-    useEffect(function() {
-        fetchQuestions()
-    }, [])
-
-    function fetchQuestions() {
-        fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple")
-        .then((res) => res.json())
-        .then((data) => data.results)
-        .then((questionsData) => setQuestions(questionsData))
-        //Insert the options propperty
-        .then(() => {
-            setQuestions(prevQuestions => prevQuestions.map(question => (
-                {
+        //Insert shuffled options for each question
+        const questionsData = await results.map(question => {
+            return {
                 ...question,
                 options: [...question.incorrect_answers, question.correct_answer].sort(() => Math.random() - 0.4)
-                }
-            )))
+            }
         })
+        return await questionsData
     }
+    
+    
+    const { data, status, error, refetch } = useQuery('questions', fetchQuestions)
+
 
     function updateSelected(questionId, value) {
         //Update selected option of a question
@@ -49,12 +49,13 @@ function Quiz(props) {
     }
 
     function playAgain() {
-        fetchQuestions()
+        //I don't Know if refetch is working
+        refetch()
         setQuizChecked(false)
         setScore(0)
     }
 
-    const renderQuestions = questions?.map((question, index) => (
+    const renderQuestions = data?.map((question, index) => (
         <Question 
         key={index}
         index={index}
@@ -70,6 +71,8 @@ function Quiz(props) {
 
     return (
         <div className="quiz">
+            {status === "loading" && <div>Loading...</div>}
+            {status === "error" && <div>{error.message}</div>}
             {renderQuestions}
             <div className="control-btns">
                 {/* DELETE THE DIVIDER OF THE SCORE */}
