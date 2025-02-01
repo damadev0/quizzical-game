@@ -1,18 +1,22 @@
-html, body {
-  height: 100%;
-}
+html,
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #F5F7FB;
+  background: #f5f7fb;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
